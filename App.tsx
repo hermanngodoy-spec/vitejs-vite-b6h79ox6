@@ -10,7 +10,7 @@ const C = {
 const ESTADOS = {
   recibido:  { label:"Recibido",   color:"#2563EB", bg:"#EFF6FF", icon:"📥" },
   proceso:   { label:"En proceso", color:"#D97706", bg:"#FFFBEB", icon:"🔄" },
-  listo:     { label:"Para Retiro, color:"#16A34A", bg:"#F0FDF4", icon:"✅" },
+  listo:     { label:"Para Retiro", color:"#16A34A", bg:"#F0FDF4", icon:"✅" },
   entregado: { label:"Entregado",     color:"#6B7280", bg:"#F9FAFB", icon:"📤" },
 };
 
