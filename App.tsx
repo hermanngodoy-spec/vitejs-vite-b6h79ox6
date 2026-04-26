@@ -39,8 +39,8 @@ const rowToOrder = row => ({
   fechaRecepcion: String(row.FechaRecepcion||"").split("T")[0],
   fechaEntrega:   String(row.FechaEntrega||"").split("T")[0],
   fechaEntregaReal: row.FechaEntregaReal||"",
-  bolsas:         Number(row.Bolsas)||0,
-  kilos:          Number(row.Kilos)||0,
+  bolsas:         Number(String(row.Bolsas).replace(",","."))||0,
+  kilos:          Number(String(row.Kilos).replace(",","."))||0,
   notas:          row.Notas||"",
   recibidoPor:    row.RecibidoPor||"",
 });
