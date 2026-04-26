@@ -10,8 +10,8 @@ const C = {
 const ESTADOS = {
   recibido:  { label:"Recibido",   color:"#2563EB", bg:"#EFF6FF", icon:"📥" },
   proceso:   { label:"En proceso", color:"#D97706", bg:"#FFFBEB", icon:"🔄" },
-  listo:     { label:"Entregado", color:"#16A34A", bg:"#F0FDF4", icon:"✅" },
-  entregado: { label:"Listo",     color:"#6B7280", bg:"#F9FAFB", icon:"📤" },
+  listo:     { label:"Para Retiro, color:"#16A34A", bg:"#F0FDF4", icon:"✅" },
+  entregado: { label:"Entregado",     color:"#6B7280", bg:"#F9FAFB", icon:"📤" },
 };
 
 const LUGARES = ["BodegaDSAL","LavDDA"];
@@ -834,7 +834,7 @@ export default function App() {
             <div style={S.panelHeader}>
               <div>
                 <h1 style={S.panelTitle}>📦 Cierre de Entrega</h1>
-                <p style={S.panelSub}>{stats.listasParaEntregar} orden{stats.listasParaEntregar!==1?"es":""} lista{stats.listasParaEntregar!==1?"s":""} para entregar</p>
+                <p style={S.panelSub}>{stats.listasParaEntregar} orden{stats.listasParaEntregar!==1?"es":""} para retirar</p>
               </div>
             </div>
 
@@ -860,7 +860,7 @@ export default function App() {
                               {emp.contacto&&<div style={{fontSize:13,color:C.accent}}>👤 {emp.contacto}</div>}
                             </div>
                             <div style={{display:"flex",gap:8,alignItems:"center"}}>
-                              <span style={S.metricPill}>✅ {emp.listas.length} lista{emp.listas.length!==1?"s":""}</span>
+                              <span style={S.metricPill}>✅ {emp.listas.length} para retiro</span>
                               <span style={S.metricPill}>🧺 {totalBolsas} bolsas</span>
                               <span style={S.metricPill}>⚖️ {totalKilos} kg</span>
                               <span style={{...S.btnPrimary,fontSize:12,padding:"6px 14px"}}>Entregar →</span>
@@ -884,7 +884,7 @@ export default function App() {
 
                 <div style={S.formSection}>
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
-                    <div style={S.sectionTitle}>✅ Órdenes listas ({ordenesDeLaEmpresa.length})</div>
+                    <div style={S.sectionTitle}>✅ Órdenes para retiro ({ordenesDeLaEmpresa.length})</div>
                     <button onClick={seleccionarTodas} style={S.btnSecondary}>
                       {entregaSeleccion.length===ordenesDeLaEmpresa.length?"Deseleccionar todas":"Seleccionar todas"}
                     </button>
@@ -1042,7 +1042,7 @@ export default function App() {
                       </div>
                     </div>
                     <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:6}}>
-                      {listas>0&&<span style={{...S.estadoBadge,background:"#F0FDF4",color:"#15803D",borderColor:"#86EFAC"}}>✅ {listas} lista{listas!==1?"s":""}</span>}
+                      {listas>0&&<span style={{...S.estadoBadge,background:"#F0FDF4",color:"#15803D",borderColor:"#86EFAC"}}>✅ {listas} para retiro</span>}
                       {pendientes>0&&<span style={{...S.estadoBadge,background:"#FFFBEB",color:"#D97706",borderColor:"#FCD34D"}}>{pendientes} pendiente{pendientes!==1?"s":""}</span>}
                     </div>
                   </div>
@@ -1064,7 +1064,7 @@ export default function App() {
               <div style={S.panelHeader}>
                 <div><h1 style={S.panelTitle}>{empresaSeleccionada}</h1>{emp?.contacto&&<p style={{...S.panelSub,color:C.accent}}>👤 {emp.contacto} · 📞 {emp?.telefono}</p>}</div>
                 <div style={{display:"flex",gap:8}}>
-                  {listas>0&&<button onClick={()=>{setEntregaEmpresa(empresaSeleccionada);setEntregaSeleccion(empOrders.filter(o=>o.estado==="listo").map(o=>o.id));setView("entrega");}} style={S.btnSuccess}>📦 Entregar órdenes listas ({listas})</button>}
+                  {listas>0&&<button onClick={()=>{setEntregaEmpresa(empresaSeleccionada);setEntregaSeleccion(empOrders.filter(o=>o.estado==="listo").map(o=>o.id));setView("entrega");}} style={S.btnSuccess}>📦 Entregar órdenes para retiro ({listas})</button>}
                   <button onClick={()=>exportToExcel(empOrders,empresaSeleccionada)} style={{...S.btnSecondary}}>⬇ Excel</button>
                   <button onClick={()=>setView("empresas")} style={S.btnSecondary}>← Volver</button>
                 </div>
