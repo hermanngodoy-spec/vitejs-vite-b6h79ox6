@@ -10,8 +10,8 @@ const C = {
 const ESTADOS = {
   recibido:  { label:"Recibido",   color:"#2563EB", bg:"#EFF6FF", icon:"📥" },
   proceso:   { label:"En proceso", color:"#D97706", bg:"#FFFBEB", icon:"🔄" },
-  listo:     { label:"Listo",      color:"#16A34A", bg:"#F0FDF4", icon:"✅" },
-  entregado: { label:"Entregado",  color:"#6B7280", bg:"#F9FAFB", icon:"📤" },
+  listo:     { label:"Entregado", color:"#16A34A", bg:"#F0FDF4", icon:"✅" },
+  entregado: { label:"Listo",     color:"#6B7280", bg:"#F9FAFB", icon:"📤" },
 };
 
 const LUGARES = ["BodegaDSAL","LavDDA"];
@@ -125,7 +125,7 @@ const printTicket = (empresa, ordenes, recibidoPor, fechaHora) => {
 </head>
 <body>
   <div class="header">
-    <div class="logo">🧺</div>
+    <div class="logo"><img src="${window.location.origin}/logo.png" alt="Logo" style="width:64px;height:64px;object-fit:contain;"/></div>
     <div class="title">Lavandería Neuquén</div>
     <div class="subtitle">Comprobante de Entrega</div>
     <div class="ticket-num">ENTREGA · ${fechaHora}</div>
@@ -646,7 +646,7 @@ export default function App() {
       {/* ── Sidebar ── */}
       <aside style={S.sidebar}>
         <div style={S.logo}>
-          <span style={{fontSize:32}}>🧺</span>
+          <img src="/logo.png" alt="Logo" style={{width:48,height:48,objectFit:"contain"}}/>
           <div><div style={S.logoTitle}>Lavandería<br/>Neuquén</div><div style={S.logoSub}>Control Industrial</div></div>
         </div>
         <nav style={S.nav}>
