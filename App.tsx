@@ -1042,8 +1042,11 @@ export default function App() {
                       </div>
                     </div>
                     <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:6}}>
-                      {listas>0&&<span style={{...S.estadoBadge,background:"#F0FDF4",color:"#15803D",borderColor:"#86EFAC"}}>✅ {listas} para retiro</span>}
-                      {pendientes>0&&<span style={{...S.estadoBadge,background:"#FFFBEB",color:"#D97706",borderColor:"#FCD34D"}}>{pendientes} pendiente{pendientes!==1?"s":""}</span>}
+                      {Object.entries(ESTADOS).map(([k,v])=>{
+                        const count=emp.ordenes.filter(o=>o.estado===k).length;
+                        if(count===0) return null;
+                        return <span key={k} style={{...S.estadoBadge,background:v.bg,color:v.color,borderColor:v.color}}>{v.icon} {count} {v.label}</span>;
+                      })}
                     </div>
                   </div>
                 );
