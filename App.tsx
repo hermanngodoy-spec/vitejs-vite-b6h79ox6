@@ -411,6 +411,21 @@ export default function App() {
     lavDDA:orders.filter(o=>o.lugar==="LavDDA").length,
     listasParaEntregar:orders.filter(o=>o.estado==="listo").length,
   }),[orders]);
+  const monthStats=useMemo(()=>{
+    const monthKey=new Date().toISOString().slice(0,7);
+    const f=orders.filter(o=>String(o.fechaRecepcion).startsWith(monthKey));
+    return {
+      total:f.length,
+      recibido:f.filter(o=>o.estado==="recibido").length,
+      proceso:f.filter(o=>o.estado==="proceso").length,
+      listo:f.filter(o=>o.estado==="listo").length,
+      entregado:f.filter(o=>o.estado==="entregado").length,
+      kilos:f.reduce((a,o)=>a+o.kilos,0),
+      bolsas:f.reduce((a,o)=>a+o.bolsas,0),
+      bodega:f.filter(o=>o.lugar==="BodegaDSAL").length,
+      lavDDA:f.filter(o=>o.lugar==="LavDDA").length,
+    };
+  },[orders]);
 
   const empresas=useMemo(()=>{
     const map={};
@@ -678,18 +693,18 @@ export default function App() {
           {lastSync&&<div style={{...S.syncLabel,marginTop:4,fontSize:10,opacity:0.7}}>Última: {String(lastSync.getHours()).padStart(2,"0")}:{String(lastSync.getMinutes()).padStart(2,"0")}:{String(lastSync.getSeconds()).padStart(2,"0")}</div>}
         </div>
         <div style={S.statsBox}>
-          <div style={S.statsTitle}>Resumen Total</div>
+          <div style={S.statsTitle}>Resumen del Mes</div>
           {Object.entries(ESTADOS).map(([k,v])=>(
             <div key={k} style={S.statRow}>
-              <span style={{...S.statDot,background:v.color}}/><span style={S.statLabel}>{v.label}</span><span style={S.statNum}>{stats[k]}</span>
+              <span style={{...S.statDot,background:v.color}}/><span style={S.statLabel}>{v.label}</span><span style={S.statNum}>{monthStats[k]}</span>
             </div>
           ))}
           <div style={S.divider}/>
-          <div style={S.statRow}><span style={S.statLabel}>🧺 Bolsas</span><span style={S.statNum}>{stats.bolsas}</span></div>
-          <div style={S.statRow}><span style={S.statLabel}>⚖️ Kilos</span><span style={{...S.statNum,color:"#4ADE80"}}>{stats.kilos} kg</span></div>
+          <div style={S.statRow}><span style={S.statLabel}>🧺 Bolsas</span><span style={S.statNum}>{monthStats.bolsas}</span></div>
+          <div style={S.statRow}><span style={S.statLabel}>⚖️ Kilos</span><span style={{...S.statNum,color:"#4ADE80"}}>{monthStats.kilos} kg</span></div>
           <div style={S.divider}/>
-          <div style={S.statRow}><span style={S.statLabel}>🏭 BodegaDSAL</span><span style={S.statNum}>{stats.bodega}</span></div>
-          <div style={S.statRow}><span style={S.statLabel}>🧺 LavDDA</span><span style={S.statNum}>{stats.lavDDA}</span></div>
+          <div style={S.statRow}><span style={S.statLabel}>🏭 BodegaDSAL</span><span style={S.statNum}>{monthStats.bodega}</span></div>
+          <div style={S.statRow}><span style={S.statLabel}>🧺 LavDDA</span><span style={S.statNum}>{monthStats.lavDDA}</span></div>
         </div>
       </aside>
 
